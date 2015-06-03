@@ -5,7 +5,7 @@
 npm install BoxfishCurl
 
 ## Usage
-```
+
 | Param         | type |  Required      | Default  |
 | ------------- |-----:| --------------:|-----:|
 | host          | string | true | - |
@@ -14,7 +14,7 @@ npm install BoxfishCurl
 | method        | string | | 'GET'|
 | headers       | object | | -
 | data          | string | | 'application/x-www-form-urlencoded'
-```
+
 
 ``` javascript
 curl.req({
