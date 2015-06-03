@@ -1,70 +1,60 @@
+var curl            = require('boxfishcurl');
 
-/**
- * AdBoxMicroService connector
- * @param  {[type]} global [description]
- * @return {[type]}        [description]
- */
-;(function(module) {
+;(function(global) {
 
   'use strict';
-
-  var promise     = require('promised-io/promise');
-  var curl        = require('boxfishcurl');
-  var consul      = require('boxfishconsul');
-
+  
   /**
-   * Constructor
-   * @param {string} serviceName 
+   * ad box is the micro service router
+   *
+   * more info: https://boxfish.atlassian.net/wiki/pages/viewpage.action?pageId=48136284 
    */
-  var AdBoxMicroService = function() { };
-
-  /**
-   * Initialise the service
-   * @param  {[type]} serviceName [description]
-   * @return {[type]}             [description]
-   */
-  AdBoxMicroService.prototype.init = function init(serviceName) {
-
-    var self = this;
-    var deferred = promise.defer();
-    this.serviceName = serviceName;
-
-    // discover the service 
-    consul.findService(serviceName).then(function(api) { 
-      // trying to get the API instance
-      self.api = api;
-      deferred.resolve(self);
-    }, function(err) { 
-      // API not available
-      var message = 'Service ' + self.serviceName + ' is not available ... ' + err;
-      console.log(message);
-      deferred.reject(message);
-    });
-
-    return deferred;
-
+  var AdBoxService = function(token, options) {
+    console.log(token);
+    this.token = token;
+    this.options = options;
   };
 
   /**
-   * make a reqquest to the current isntance
-   * @param  {[type]} path   [description]
-   * @param  {[type]} method [description]
-   * @param  {[type]} data   [description]
-   * @return {[type]}        deferred promise
+   * [Type description]
+   * 
+   *    curl -i -X GET 
+   *    -H "Content-Type:application/json" 
+   *    -H "token:c1a25bb8-8f4f-4033-818e-7f3c3729977b" 
+   *    http://staging-microservices.boxfish.com:8080/epg/programs/search/walking
+   *
+   * @param {object} curl options
+   * @param {bool} whether authetication is required or not
+   * @type {object} deferred
+   * 
    */
-  AdBoxMicroService.prototype.req = function req(path, method, data, headers) {
+  AdBoxService.prototype.req = function req(options, requireAuth) { //jshint ignore:line
+
+    var headers = {};
+
+    console.log('AdBox req', options);
+
+    headers = options.headers || {};
+
+    // we add the token by default
+    if (typeof requireAuth == 'undefined' || requireAuth) {
+      headers.token = this.token;
+    }
 
     return curl.req({
-      host: this.api.Address || sails.config.consul.host,
-      port: this.api.Port,
-      path: path,
-      method: method,
-      data: data,
+      host: this.options.host,
+      port: this.options.port,
+      path: options.path,
+      method: options.method || 'GET',
+      data: options.data,
       headers: headers
     });
 
   };
 
-  module.exports = AdBoxMicroService;
+  global.AdBoxService = AdBoxService;
 
-})(module); // jshint ignore:line
+})(this);
+
+module.exports = this.AdBoxService;
+
