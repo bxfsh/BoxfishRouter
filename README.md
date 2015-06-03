@@ -39,5 +39,3 @@ curl.req({
 ```
 npm test
 ```
-
-https://danieldmo@bitbucket.org/boxfish-ondemand/web-brand-analysis.git

@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/boxfish-ondemand/web-commons-curl"
+    "url": "https://github.com/danieldmo/BoxfishCurl.git"
   },
   "keywords": [
     "curl"
