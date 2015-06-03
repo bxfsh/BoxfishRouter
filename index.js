@@ -89,6 +89,10 @@
         req.write(options.data);
       } 
 
+      if (typeof o.headers['Content-Type'] === 'undefined') {
+        o.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
+
       req.on('error', function(e) {
         deferred.reject(null, 'problem with request: ' + e);
       }).end();
