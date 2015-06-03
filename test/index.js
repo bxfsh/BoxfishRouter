@@ -1,30 +1,22 @@
-var should = require('chai').should();
-var assert = require('chai').assert;
-var curl = require('../index');
+// var sails = {};
+// sails.config = {};
+// sails.config.consul = {}
+// sails.config.consul.host = 'localhost';
+
+// var should = require('chai').should();
+// var assert = require('chai').assert;
+// var Adboxmicroservice = require('../index');
     
-describe('BoxfishCurl', function() {
+// describe('BoxfishCurl', function() {
 
-	it('should ping boxfish.com', function() {
-		curl.req({
-	    host: 'boxfish.com',
-	    path: '/',
-	  }).then(function(data) {
-	    data.should.be.a('string');
-	  }, function(err) {
-	    throw 'If this is broken, STOP WHAT YOU ARE DOING AND GO FIX THE WEBSITE' + err;
-	  });	
-	});
+// 	 it('should not load a non existent service', function(done) {
 
-	it('should get todays weather', function() {
-		curl.req({
-			host: 'api.openweathermap.org',
-			path: '/data/2.5/weather?lat=35&lon=139',
-			header: { 'Content-Type': 'application/json' }
-		}).then(function(data) {
-			expect(data).to.have.property('weather').with.length(1);
-		}, function(err) {
-			throw err;
-		});
-	})
+//     // initialise a service that does not exist
+//     new Adboxmicroservice().init('non-existent-service-by-daniel').then(function() {
+//         throw 'service found? :O';
+//       }, function(err) {
+//         assert.typeOf(err, 'object');
+//       });
+//   });
 	
-});
+// });

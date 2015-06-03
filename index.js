@@ -1,106 +1,70 @@
+
+/**
+ * AdBoxMicroService connector
+ * @param  {[type]} global [description]
+ * @return {[type]}        [description]
+ */
 ;(function(module) {
 
   'use strict';
 
-  /**
-   * dependencies
-   */  
-  var promise 	 = require('promised-io/promise');
+  var promise     = require('promised-io/promise');
+  var curl        = require('boxfishcurl');
+  var consul      = require('boxfishconsul');
 
   /**
-   * Curl service
-   * example call 
-   * 
-   * 		curl.req({
-   *				host 	: 'ipinfo.io',
-   *				path 	: '/',
-   *				method	: 'GET'
-   *			}, function(err, data) { // do stuff your data });
-   *
-   * @type {Object}
+   * Constructor
+   * @param {string} serviceName 
    */
-  module.exports = {
+  var AdBoxMicroService = function() { };
 
-  	/**
-  	 * makes a curl request
-  	 * @param  {[type]}   options  all configurations
-  	 * @return {[type]}            the http request object
-  	 */
-  	req: function(options) {
+  /**
+   * Initialise the service
+   * @param  {[type]} serviceName [description]
+   * @return {[type]}             [description]
+   */
+  AdBoxMicroService.prototype.init = function init(serviceName) {
 
-  		var retVal = '';
-  		var https = require( options.ssh ? 'https' : 'http');
-  		var o = {
-          host: options.host,
-          path: options.path,
-          port: options.port || 80,
-          method: options.method || 'GET',
-          headers : options.headers || { }
-      };
-      var deferred = promise.defer();
-      console.log('curl options', o);
-      console.log('curl data', options.data);
-      var req = https.request(o, function(res) {
+    var self = this;
+    var deferred = promise.defer();
+    this.serviceName = serviceName;
 
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) { 
-          console.log(new Date(), 'on data', chunk);
-          retVal += chunk; 
-        });
+    // discover the service 
+    consul.findService(serviceName).then(function(api) { 
+      // trying to get the API instance
+      self.api = api;
+      deferred.resolve(self);
+    }, function(err) { 
+      // API not available
+      var message = 'Service ' + self.serviceName + ' is not available ... ' + err;
+      console.log(message);
+      deferred.reject(message);
+    });
 
-        res.on('end', function() {
-
-        	var data = retVal;
-        	
-        	try {
-            if (retVal.length && retVal.length ===0) {
-              console.log('CURL: response is empty', res.req._header);
-            } else if (typeof retVal === 'string') {
-            	data = JSON.parse(retVal);
-          	}
-          } catch ( _ ) {
-            console.log('CURL: error while parsing data');
-          }
-
-          switch (res.statusCode) {
-            case 500:
-            case 400:
-            case 404:
-              console.log(data);
-              console.log('CURL: returned code', res.statusCode, 'from request', res.req._header);
-              deferred.reject(data, data);
-              break;
-            default:
-              deferred.resolve(data, res);
-              break;
-          }
-
-        });
-
-    	});
-
-      if (options.data) {
-        if (typeof options.data !== 'string') {
-          options.data = JSON.stringify(options.data);
-        }
-
-        o.headers['Content-Length'] = options.data.length;
-        
-        req.write(options.data);
-      } 
-
-      if (typeof o.headers['Content-Type'] === 'undefined') {
-        o.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-      }
-
-      req.on('error', function(e) {
-        deferred.reject(null, 'problem with request: ' + e);
-      }).end();
-
-  	  return deferred;
-
-  	}
+    return deferred;
 
   };
+
+  /**
+   * make a reqquest to the current isntance
+   * @param  {[type]} path   [description]
+   * @param  {[type]} method [description]
+   * @param  {[type]} data   [description]
+   * @return {[type]}        deferred promise
+   */
+  AdBoxMicroService.prototype.req = function req(path, method, data, headers) {
+
+    return curl.req({
+      host: this.api.Address || sails.config.consul.host,
+      port: this.api.Port,
+      path: path,
+      method: method,
+      data: data,
+      headers: headers
+    });
+
+  };
+
+  module.exports = AdBoxMicroService;
 
 })(module); // jshint ignore:line

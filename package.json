@@ -1,14 +1,14 @@
 {
-  "name": "BoxfishCurl",
+  "name": "boxfish-microservice",
   "version": "1.0.0",
-  "description": "Curl library for the boxfish ads platform",
+  "description": "Microservice Connector library for the boxfish ads platform",
   "main": "index.js",
   "scripts": {
     "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/danieldmo/BoxfishCurl.git"
+    "url": "https://github.com/danieldmo/BoxfishMicroservice.git"
   },
   "keywords": [
     "curl"
@@ -16,6 +16,8 @@
   "author": "Daniel Oliveira <daniel@boxfish.com> (boxfish.com)",
   "license": "ISC",
   "dependencies": {
+    "boxfishconsul": "^1.0.0",
+    "boxfishcurl": "^1.0.0",
     "promised-io": "^0.3.5"
   },
   "devDependencies": {
