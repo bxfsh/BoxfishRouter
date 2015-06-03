@@ -4,9 +4,9 @@ var Router = require('../index');
     
 describe('BoxfishRouter', function() {
 
-	var token = 'c1a25bb8-8f4f-4033-818e-7f3c3729977b';
+	var token = 'your token';
 	var options =  {
-	  host: 'staging-microservices.boxfish.com',
+	  host: 'localhost',
 	  port: 8080
 	};
 	

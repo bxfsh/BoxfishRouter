@@ -1,5 +1,5 @@
 {
-  "name": "boxfish-microservice",
+  "name": "boxfish-router",
   "version": "1.0.0",
   "description": "Microservice Connector library for the boxfish ads platform",
   "main": "index.js",
