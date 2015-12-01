@@ -18,7 +18,8 @@
   "dependencies": {
     "boxfishconsul": "^1.0.0",
     "boxfishcurl": "^1.0.0",
-    "promised-io": "^0.3.5"
+    "promised-io": "^0.3.5",
+    "request": "^2.67.0"
   },
   "devDependencies": {
     "chai": "^2.3.0",
