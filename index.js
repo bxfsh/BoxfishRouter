@@ -32,8 +32,6 @@ var curl            = require('boxfishcurl');
 
     var headers = {};
 
-    console.log('AdBox req', options);
-
     headers = options.headers || {};
 
     // we add the token by default
