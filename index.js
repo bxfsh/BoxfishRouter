@@ -1,4 +1,4 @@
-var curl            = require('boxfishcurl');
+var curl = require('boxfishcurl');
 
 ;(function(global) {
 
@@ -10,7 +10,6 @@ var curl            = require('boxfishcurl');
    * more info: https://boxfish.atlassian.net/wiki/pages/viewpage.action?pageId=48136284 
    */
   var AdBoxService = function(token, options) {
-    console.log(token);
     this.token = token;
     this.options = options;
   };
