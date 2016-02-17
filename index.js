@@ -3,30 +3,29 @@ var curl            = require('boxfishcurl');
 ;(function(global) {
 
   'use strict';
-  
+
   /**
    * ad box is the micro service router
    *
-   * more info: https://boxfish.atlassian.net/wiki/pages/viewpage.action?pageId=48136284 
+   * more info: https://boxfish.atlassian.net/wiki/pages/viewpage.action?pageId=48136284
    */
   var AdBoxService = function(token, options) {
-    console.log(token);
     this.token = token;
     this.options = options;
   };
 
   /**
    * [Type description]
-   * 
-   *    curl -i -X GET 
-   *    -H "Content-Type:application/json" 
-   *    -H "token:c1a25bb8-8f4f-4033-818e-7f3c3729977b" 
+   *
+   *    curl -i -X GET
+   *    -H "Content-Type:application/json"
+   *    -H "token:c1a25bb8-8f4f-4033-818e-7f3c3729977b"
    *    http://staging-microservices.boxfish.com:8080/epg/programs/search/walking
    *
    * @param {object} curl options
    * @param {bool} whether authetication is required or not
    * @type {object} deferred
-   * 
+   *
    */
   AdBoxService.prototype.req = function req(options, requireAuth) { //jshint ignore:line
 
@@ -55,4 +54,3 @@ var curl            = require('boxfishcurl');
 })(this);
 
 module.exports = this.AdBoxService;
-
