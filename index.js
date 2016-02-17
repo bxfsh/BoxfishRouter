@@ -1,4 +1,4 @@
-var curl            = require('boxfishcurl');
+var curl = require('boxfishcurl');
 
 ;(function(global) {
 
