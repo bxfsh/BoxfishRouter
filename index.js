@@ -38,6 +38,17 @@ var curl = require('boxfishcurl');
       headers.token = this.token;
     }
 
+    if (sails) sails.log.debug(`[boxfish-router][req][new Date()]`);
+
+    if (sails) sails.log.debug({
+      host: this.options.host,
+      port: this.options.port,
+      path: options.path,
+      method: options.method || 'GET',
+      data: options.data,
+      headers: headers
+    });
+
     return curl.req({
       host: this.options.host,
       port: this.options.port,
