@@ -38,9 +38,9 @@ var curl = require('boxfishcurl');
       headers.token = this.token;
     }
 
-    if (sails) sails.log.debug(`[boxfish-router][req][new Date()]`);
+    if (typeof sails !== 'undefined') sails.log.debug(`[boxfish-router][req][new Date()]`);
 
-    if (sails) sails.log.debug({
+    if (typeof sails !== 'undefined') sails.log.debug({
       host: this.options.host,
       port: this.options.port,
       path: options.path,
