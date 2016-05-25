@@ -1,15 +1,5 @@
-# BoxfishMicroservice.js
+# Boxfish Router
 
-## Installation
-
-npm install boxfish-microservice
-
-## Usage
-
-
-
-## Run test
-
-```
-npm test
+```shell
+npm install boxfish-router
 ```
