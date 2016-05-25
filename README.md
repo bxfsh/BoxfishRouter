@@ -1,5 +1,5 @@
 # Boxfish Router
 
 ```shell
-npm install boxfish-router
+npm install boxfish-router --save
 ```
