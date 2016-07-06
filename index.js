@@ -49,7 +49,7 @@ var curl = require('boxfishcurl');
     //   headers: headers
     // });
 
-    console.log({
+    if (sails && sails.log) sails.log.debug({
       host: this.options.host,
       port: this.options.port,
       ssl: this.options.protocol && this.options.protocol === 'https',
