@@ -49,9 +49,21 @@ var curl = require('boxfishcurl');
     //   headers: headers
     // });
 
+    console.log({
+      host: this.options.host,
+      port: this.options.port,
+      ssl: this.options.protocol && this.options.protocol === 'https',
+      path: options.path,
+      method: options.method || 'GET',
+      data: options.data,
+      headers: headers
+    });
+
     return curl.req({
       host: this.options.host,
       port: this.options.port,
+      ssh: this.options.protocol && this.options.protocol === 'https',
+      ssl: this.options.protocol && this.options.protocol === 'https',
       path: options.path,
       method: options.method || 'GET',
       data: options.data,
